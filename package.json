@@ -1,0 +1,32 @@
+{
+    "name": "@giladno/acme",
+    "version": "1.0.0",
+    "description": "A simple ACME client for Node.js",
+    "main": "index.js",
+    "engines": {
+        "node": ">=8.10"
+    },
+    "scripts": {
+        "deploy": "npm publish --access public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/giladno/acme.git"
+    },
+    "keywords": [],
+    "author": "Gilad Novik <gilad@novik.ca>",
+    "bugs": {
+        "url": "https://github.com/giladno/acme/issues"
+    },
+    "homepage": "https://github.com/giladno/acme#readme",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.13.0",
+        "eslint-plugin-node": "^8.0.1"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "node-forge": "^0.8.0"
+    }
+}
