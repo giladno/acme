@@ -82,7 +82,7 @@ module.exports = class ACME {
         });
     }
 
-    async createAccount({email, termsOfServiceAgreed = true, bits = 2048}) {
+    async createAccount({email, termsOfServiceAgreed = true, bits = 4096}) {
         const {privateKey} = await generateKeyPair({bits});
         this.accountKey = forge.pki.privateKeyToPem(privateKey);
         const {
@@ -121,7 +121,7 @@ module.exports = class ACME {
         email,
         altNames = [],
         timeout = 60000,
-        bits = 2048,
+        bits = 4096,
     }) {
         const domains = [].concat(domain);
         const {
@@ -148,7 +148,6 @@ module.exports = class ACME {
             } = await axios.get(location);
             if (status == 'ready') break;
         }
-
         const csr = forge.pki.createCertificationRequest();
         const {privateKey, publicKey} = await generateKeyPair({bits});
         csr.publicKey = publicKey;
@@ -203,9 +202,9 @@ module.exports = class ACME {
     }
 
     middleware() {
+        const prefix = '/.well-known/acme-challenge/';
         return (req, res, next) => {
             try {
-                const prefix = '/.well-known/acme-challenge/';
                 if (!req.url.startsWith(prefix)) return next();
                 res.setHeader('Content-Type', 'text/plain; charset=utf-8');
                 res.end(
