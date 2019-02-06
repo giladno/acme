@@ -194,7 +194,17 @@ module.exports = class ACME {
             .replace(/\r/g, '')
             .replace(/\n\n/g, '\n\r')
             .split(/\r/);
-        return {privateKey: forge.pki.privateKeyToPem(privateKey), cert, chain};
+        const {validity} = forge.pki.certificateFromPem(cert);
+        return {
+            host: domains[0],
+            privateKey: forge.pki.privateKeyToPem(privateKey),
+            cert,
+            chain,
+            issued: validity.notBefore,
+            issuedAt: +new Date(validity.notBefore),
+            expires: validity.notAfter,
+            expiresAt: +new Date(validity.notAfter),
+        };
     }
 
     async revoke(cert, reason) {
