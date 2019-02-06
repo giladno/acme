@@ -200,9 +200,9 @@ module.exports = class ACME {
             privateKey: forge.pki.privateKeyToPem(privateKey),
             cert,
             chain,
-            issued: validity.notBefore,
+            issued: new Date(validity.notBefore).toISOString(),
             issuedAt: +new Date(validity.notBefore),
-            expires: validity.notAfter,
+            expires: new Date(validity.notAfter).toISOString(),
             expiresAt: +new Date(validity.notAfter),
         };
     }
